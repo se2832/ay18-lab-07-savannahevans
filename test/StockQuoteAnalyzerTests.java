@@ -35,7 +35,6 @@ public class StockQuoteAnalyzerTests {
 	public void afterMethod() {
 		mockedStockQuoteGenerator = null;
 		mockedStockTickerAudio = null;
-
 	}
 	
 	@Test(expectedExceptions = InvalidStockSymbolException.class)
@@ -195,7 +194,6 @@ public class StockQuoteAnalyzerTests {
 
 	    // Arrange
 		when(mockedStockQuoteGenerator.getCurrentQuote()).thenReturn(firstReturn, secondReturn);
-
 		analyzer = new StockQuoteAnalyzer("F", mockedStockQuoteGenerator, mockedStockTickerAudio);
 
 		// Act

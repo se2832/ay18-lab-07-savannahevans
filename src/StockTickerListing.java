@@ -72,7 +72,7 @@ public class StockTickerListing extends Hashtable<String, String> {
 		super();
 		addNYSESymbols1();
 		addNYSESymbols2();
-	};
+	}
 
 	/**
 	 * This method will add the first set of symbols into the listing.
@@ -5325,7 +5325,7 @@ public class StockTickerListing extends Hashtable<String, String> {
 		this.put("MZOR", "MAZOR ROBOTICS LTD-SPON ADR");
 		this.put("MZZ", "PROSHARES ULTSHRT MIDCAP400");
 
-	};
+	}
 
 	private void addNYSESymbols2() {
 
