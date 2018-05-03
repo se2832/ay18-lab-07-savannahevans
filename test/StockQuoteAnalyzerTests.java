@@ -268,7 +268,7 @@ public class StockQuoteAnalyzerTests {
 			double percentChange) throws Exception {
 
 	    // Assert
-		when(mockedStockQuoteGenerator.getCurrentQuote()).thenReturn(firstReturn);
+		when(mockedStockQuoteGenerator.getCurrentQuote()).thenReturn(firstReturn, secondReturn);
 		analyzer = new StockQuoteAnalyzer("F", mockedStockQuoteGenerator, mockedStockTickerAudio);
 
         // Act

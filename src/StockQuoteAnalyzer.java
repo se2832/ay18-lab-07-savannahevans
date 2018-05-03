@@ -68,6 +68,8 @@ public class StockQuoteAnalyzer {
 	private StockQuoteInterface currentQuote = null;
 
 	/**
+     * Fixed in issue 1.
+     *
 	 * @param symbol
 	 *            This is the stock symbol that is being analyzed.
 	 * @param stockQuoteSource
@@ -157,6 +159,8 @@ public class StockQuoteAnalyzer {
 
 	/**
 	 * This method will return the previous open for the given stock.
+     *
+     * Fixed from issue 3.
 	 * 
 	 * @return The previous closing value for the stock will be returned.
 	 * @throws InvalidAnalysisState
@@ -164,7 +168,7 @@ public class StockQuoteAnalyzer {
 	 *             has not yet been retrieved.
 	 */
 	public double getPreviousOpen() throws InvalidAnalysisState {
-		if (currentQuote != null) {
+		if (currentQuote == null) {
 			throw new InvalidAnalysisState("No quote has ever been retrieved.");
 		}
 		return currentQuote.getOpen();
