@@ -102,6 +102,7 @@ public class StockQuoteAnalyzer {
 
 	/**
 	 * Get the latest stock info from the source and analyze it.
+	 * Fixed from issue 2.
 	 * 
 	 * @throws StockTickerConnectionError
 	 *             Will be thrown if the routine is unable to obtain a current
@@ -113,7 +114,7 @@ public class StockQuoteAnalyzer {
 			StockQuoteInterface temp = this.stockQuoteSource.getCurrentQuote();
 
 			this.previousQuote = currentQuote;
-			this.currentQuote = this.previousQuote;
+			this.currentQuote = temp;
 		} catch (Exception e) {
 			throw new StockTickerConnectionError("Unable to connect with Stock Ticker Source.");
 		}
@@ -132,10 +133,10 @@ public class StockQuoteAnalyzer {
 	public void playAppropriateAudio() {
 		if (audioPlayer != null) {
 			try {
-				if ((this.getPercentChangeSinceOpen() > 1) || (this.getChangeSinceLastCheck()!=1.00)) {
+				if ((this.getPercentChangeSinceOpen() > 0.01) || (this.getChangeSinceLastCheck() > 1.00)) {
 					audioPlayer.playHappyMusic();
 				}
-				if ((this.getPercentChangeSinceOpen() < 0) && (this.getChangeSinceLastCheck()<1.00)) {
+				if ((this.getPercentChangeSinceOpen() <= -0.01) || (this.getChangeSinceLastCheck() < -1.00)) {
 					audioPlayer.playSadMusic();
 				}
 			} catch (InvalidAnalysisState e) {
@@ -224,7 +225,7 @@ public class StockQuoteAnalyzer {
 	 * market is open, this will be the change that has occurred since the last
 	 * time the value was checked. If the market is closed or the value has not
 	 * changed since the last check, then this will be 0.
-	 * 
+	 *
 	 * @return The raw changed value for the given stock will be returned.
 	 * @throws InvalidAnalysisState
 	 *             An invalid analysis state will be thrown if there have not

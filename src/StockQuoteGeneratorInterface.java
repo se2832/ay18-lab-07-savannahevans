@@ -36,7 +36,7 @@ public interface StockQuoteGeneratorInterface {
 
 	/**
 	 * This routine will get a current stock quote.
-	 * 
+	 *
 	 * @return RFeturn a current stock quote for the given stock.
 	 * @throws Exception
 	 *             An exception will be thrown if a current stock quote can not

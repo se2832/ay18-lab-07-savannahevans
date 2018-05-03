@@ -164,7 +164,7 @@ public class StockQuoteAnalyzerTests {
 	@DataProvider
 	public Object[][] normalOperationDataProvider() {
 		return new Object[][] {
-				{ new StockQuote("F", 100.00, 100.00, 0.00), new StockQuote("F", 100.00, 100.00, 0.00), 0, 0, 0.0 }, // No
+				{ new StockQuote("F", 100.00, 100.00, 0.00), new StockQuote("F", 100.00, 100.00, 0.00), 0, 0, 0.0 }, // None
 																														// change.
 				{ new StockQuote("F", 100.00, 100.00, 100.00), new StockQuote("F", 100.00, 100.99, 0.99), 0, 0, 0.99 }, // .99%
 				// increase
@@ -175,7 +175,7 @@ public class StockQuoteAnalyzerTests {
 				{ new StockQuote("F", 100.00, 100.00, 100.00), new StockQuote("F", 100.00, 110.00, 10.00), 1, 0, 10.0 }, // 10.0%
 				// increase
 
-				{ new StockQuote("F", 100.00, 100.00, 0.00), new StockQuote("F", 100.00, 100.00, 0.00), 0, 0, 0.0 }, // No
+				{ new StockQuote("F", 100.00, 100.00, 0.00), new StockQuote("F", 100.00, 100.00, 0.00), 0, 0, 0.0 }, // None
 																														// change.
 				{ new StockQuote("F", 100.00, 100.00, 100.00), new StockQuote("F", 100.00, 99.01, -0.99), 0, 0, -0.99 }, // .99%
 				// decrease
@@ -193,11 +193,13 @@ public class StockQuoteAnalyzerTests {
 			double percentChange) throws Exception {
 
 	    // Arrange
-		when(mockedStockQuoteGenerator.getCurrentQuote()).thenReturn(firstReturn, secondReturn);
+
+		when(mockedStockQuoteGenerator.getCurrentQuote()).thenReturn(firstReturn);
 		analyzer = new StockQuoteAnalyzer("F", mockedStockQuoteGenerator, mockedStockTickerAudio);
 
 		// Act
 		analyzer.refresh();
+        when(mockedStockQuoteGenerator.getCurrentQuote()).thenReturn(secondReturn);
 		analyzer.refresh();
 		analyzer.playAppropriateAudio();
 
