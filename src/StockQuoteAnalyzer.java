@@ -209,6 +209,8 @@ public class StockQuoteAnalyzer {
 	/**
 	 * This method will return the percent change for the given stock since
 	 * opening.
+	 *
+	 * Fixed in issue 4.
 	 * 
 	 * @return The percent change for the given stock will be returned. It will
 	 *         be accurate to the nearest .01%.
@@ -220,8 +222,7 @@ public class StockQuoteAnalyzer {
 		if (currentQuote == null) {
 			throw new InvalidAnalysisState("No quote has ever been retrieved.");
 		}
-
-		return Math.round((10000 * this.currentQuote.getChange() / this.currentQuote.getOpen())) % 100.0;
+		return Math.round((10000 * (this.currentQuote.getChange()) / this.currentQuote.getOpen())) / 100.0;
 	}
 
 	/**
@@ -243,7 +244,6 @@ public class StockQuoteAnalyzer {
 		if (previousQuote == null) {
 			throw new InvalidAnalysisState("A second update has not yet occurred.");
 		}
-
 		return currentQuote.getLastTrade() - previousQuote.getChange();
 	}
 
