@@ -131,14 +131,16 @@ public class StockQuoteAnalyzer {
 	 * check, then sad music will play. However, nothing will happen if the
 	 * audio player is null. If for some reason there is an error with the
 	 * internal state, then error music will be played.
+     *
+     * Fixed in issue 5.
 	 */
 	public void playAppropriateAudio() {
 		if (audioPlayer != null) {
 			try {
-				if ((this.getPercentChangeSinceOpen() > 0.01) || (this.getChangeSinceLastCheck() > 1.00)) {
+				if ((this.getPercentChangeSinceOpen() > 1.0) || (this.getChangeSinceLastCheck() > 1.00)) {
 					audioPlayer.playHappyMusic();
 				}
-				if ((this.getPercentChangeSinceOpen() <= -0.01) || (this.getChangeSinceLastCheck() < -1.00)) {
+				if ((this.getPercentChangeSinceOpen() < -1.0) || (this.getChangeSinceLastCheck() < -1.00)) {
 					audioPlayer.playSadMusic();
 				}
 			} catch (InvalidAnalysisState e) {
@@ -230,6 +232,8 @@ public class StockQuoteAnalyzer {
 	 * market is open, this will be the change that has occurred since the last
 	 * time the value was checked. If the market is closed or the value has not
 	 * changed since the last check, then this will be 0.
+     *
+     * Fixed in issue 5.
 	 *
 	 * @return The raw changed value for the given stock will be returned.
 	 * @throws InvalidAnalysisState
@@ -244,7 +248,7 @@ public class StockQuoteAnalyzer {
 		if (previousQuote == null) {
 			throw new InvalidAnalysisState("A second update has not yet occurred.");
 		}
-		return currentQuote.getLastTrade() - previousQuote.getChange();
+		return currentQuote.getLastTrade() - previousQuote.getLastTrade();
 	}
 
 	/**
